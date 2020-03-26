@@ -19,6 +19,13 @@
         placeholder="手机号码"
         :rules="[{ required: true, message: '请填写手机号码' }]"
       />
+      <!-- 昵称的输入框 -->
+      <van-field
+        v-model="form.nickname"
+        name="昵称"
+        placeholder="昵称"
+        :rules="[{ required: true, message: '请输入昵称' }]"
+      />
       <van-field
         v-model="form.password"
         type="password"
@@ -29,13 +36,13 @@
       <div>
         <!--如果这个按钮是在van-form组件内部,并且按钮的native-type='submit',说明这个按钮就会触发submit事件 -->
         <van-button round block type="info" native-type="submit">
-          登录
+          注册
         </van-button>
       </div>
     </van-form>
-    <router-link to="/register">
-      <van-button round block class="link-register">
-        注册
+    <router-link to="/login">
+      <van-button round block class="link-login">
+        登录
       </van-button>
     </router-link>
   </div>
@@ -48,6 +55,7 @@ export default {
       // 保存表单数据
       form: {
         username: "",
+        nickname: "",
         password: ""
       }
     };
@@ -59,7 +67,7 @@ export default {
       // 调用axios发起异步请求, 类似$.ajax(类似, 不代表一样);
       this.$axios({
         // 接口地址
-        url: "http://127.0.0.1:3000/login",
+        url: "http://127.0.0.1:3000/register",
         // 声明请求的方法为post请求(一定要注意这个method没有s)
         // 跟vue的methods属性毫无关系
         method: "post",
@@ -111,7 +119,7 @@ export default {
     border: 1px solid #cc3300;
   }
 }
-.link-register {
+.link-login {
   margin-top: 20/360 * 100vw;
 }
 </style>

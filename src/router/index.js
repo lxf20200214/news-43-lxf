@@ -9,6 +9,11 @@ const routes = [
     // 除了首页之外的页面都可以用懒加载
     // .vue的扩展名可以忽略
     component: () => import("@/views/Login")
+  },
+  {
+    // 注册页
+    path: "/register",
+    component: () => import("@/views/Register")
   }
 ];
 
