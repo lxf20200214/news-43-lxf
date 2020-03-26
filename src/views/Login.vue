@@ -53,7 +53,10 @@ export default {
         data: this.form
         // .then方法里面的函数就是成功的回调函数
       }).then(res => {
-        console.log(res);
+        // console.log(res);
+        const { message } = res.data;
+        // 使用vant的弹窗提示用,success表示成功的弹窗
+        this.$toast.success(message);
       });
     }
   }
