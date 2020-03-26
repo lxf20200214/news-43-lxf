@@ -31,4 +31,43 @@ export default {};
 .container {
   padding: 20/360 * 100vw;
 }
+.back-btn {
+  line-height: 0;
+}
+.back-btn span {
+  font-size: 27/360 * 100vw;
+}
+.logo {
+  text-align: center;
+  margin-top: 20/360 * 100vw;
+}
+.logo span {
+  font-size: 126/360 * 100vw;
+  color: #cc3300;
+}
+.form-item {
+  margin-top: 20/360 * 100vw;
+}
+.form-item input {
+  width: 100%;
+  height: 44/360 * 100vw;
+  box-sizing: border-box;
+  line-height: 44/360 * 100vw;
+  background: none;
+  border: none;
+  border-bottom: 1px #999 solid;
+  outline: none;
+  font-size: 16px;
+}
+.form-item button {
+  margin-top: 50/360 * 100vw;
+  width: 100%;
+  height: 48/360 * 100vw;
+  background: #cc3300;
+  color: #fff;
+  border-radius: 50px;
+  border: none;
+  outline: none;
+  font-size: 16px;
+}
 </style>
