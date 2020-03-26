@@ -1,10 +1,15 @@
-import Vue from 'vue'
-import App from './App.vue'
-import router from './router'
+import Vue from "vue";
+import App from "./App.vue";
+import router from "./router";
+// 引入vant ui组件库
+import Vant from "vant";
 
-Vue.config.productionTip = false
+// 注册vant插件(vue.use都是用来注册插件)
+Vue.use(Vant);
+
+Vue.config.productionTip = false;
 
 new Vue({
   router,
   render: h => h(App)
-}).$mount('#app')
+}).$mount("#app");

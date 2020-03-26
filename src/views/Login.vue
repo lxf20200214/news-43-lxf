@@ -17,25 +17,31 @@
         <input type="password" placeholder="请输入密码" />
       </div>
       <div class="form-item">
-        <button>登录</button>
+        <button @click="handleClick">登录</button>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-export default {};
+export default {
+  methods: {
+    // 点击登录按钮的事件
+    handleClick() {
+      this.$toast("登录成功");
+    }
+  }
+};
 </script>
 
-<style lang='less'>
+<style lang="less">
 .container {
   padding: 20/360 * 100vw;
 }
-.back-btn {
-  line-height: 0;
-}
+// 样式会被iconfont覆盖的,所以要选中span
 .back-btn span {
   font-size: 27/360 * 100vw;
+  line-height: 1;
 }
 .logo {
   text-align: center;
