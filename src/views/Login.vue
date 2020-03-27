@@ -28,15 +28,11 @@
       />
       <div>
         <!--如果这个按钮是在van-form组件内部,并且按钮的native-type='submit',说明这个按钮就会触发submit事件 -->
-        <van-button round block type="info" native-type="submit">
-          登录
-        </van-button>
+        <van-button round block type="info" native-type="submit">登录</van-button>
       </div>
     </van-form>
     <router-link to="/register">
-      <van-button round block class="link-register">
-        注册
-      </van-button>
+      <van-button round block class="link-register">注册</van-button>
     </router-link>
   </div>
 </template>
@@ -59,7 +55,7 @@ export default {
       // 调用axios发起异步请求, 类似$.ajax(类似, 不代表一样);
       this.$axios({
         // 接口地址
-        url: "http://127.0.0.1:3000/login",
+        url: "/login",
         // 声明请求的方法为post请求(一定要注意这个method没有s)
         // 跟vue的methods属性毫无关系
         method: "post",
@@ -67,17 +63,23 @@ export default {
         data: this.form
         // .then方法里面的函数就是成功的回调函数
       }).then(res => {
-        // 获取到返回的信息
-        const { message } = res.data;
+        // 获取到返回的信息,data 是token和用户的信息,data是保存到本地的
+
+        const { message, data } = res.data;
         // 使用vant的弹窗提示用,success表示成功的弹窗
         this.$toast.success(message);
+        // 把token和id 保存到本地
+        // localStorage只能保存字符串，需要使用JSON.srtingify来把对象转换成字符串
+        localStorage.setItem("userInfo", JSON.stringify(data));
+        // 先暂时让登陆成功跳转个人中心页
+        this.$router.push("/personal");
       });
     }
   }
 };
 </script>
 
-<style lang="less">
+<style lang="less" scoped>
 .container {
   padding: 20/360 * 100vw;
 }
