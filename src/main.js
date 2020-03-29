@@ -24,7 +24,7 @@ Vue.config.productionTip = false;
 router.beforeEach((to, form, next) => {
   // 判断是否去的是个人中心页
   // console.log(to);
-  if (to.path === "/personal") {
+  if (to.path === "/personal" || to.path === "/edit-profile") {
     // 判断是否是在登录状态,是否有token
     // 如果本地的数据是空会返回null，null是没有token属性，会导致js报错
     // 所以可以加个判断，如果本地的数据空的，等于空的对象

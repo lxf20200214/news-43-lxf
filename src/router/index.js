@@ -19,6 +19,11 @@ const routes = [
     // 个人中心
     path: "/personal",
     component: () => import("@/views/Personal")
+  },
+  {
+    // 编辑页
+    path: "/edit-profile",
+    component: () => import("@/views/EditProfile")
   }
 ];
 
