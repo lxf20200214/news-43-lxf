@@ -148,7 +148,7 @@ export default {
     // 编辑用户信息的函数,可以修改头像,昵称
     // data就是请求的参数,随便命名
     handleEdit(data) {
-      this.$axios({
+      return this.$axios({
         url: "user_update/" + this.userInfo.id,
         method: "post",
         // 添加头信息
@@ -163,11 +163,16 @@ export default {
     // 修改昵称的事件
     handleChangeNickname() {
       // 调用编辑用户信息的函数
-      this.handleEdit({
+      const request = this.handleEdit({
         nickname: this.nickname
       });
+
       // 在页面同步显示修改的数据
-      this.userInfo.nickname = this.nickname;
+      // 请求成功之后执行方法
+      request.then(() => {
+        // 请求成功之后再修改昵称
+        this.userInfo.nickname = this.nickname;
+      });
     },
     // 修改密码事件
     handleChangePassword() {
@@ -184,9 +189,10 @@ export default {
       // 不用close-on-click-action,的方法
       // this.showGender = false;
       // 调用编辑用户信息的函数
-      this.handleEdit({ gender: item.value });
-      // 同步的修改当前显示的数据
-      this.userInfo.gender = item.value;
+      this.handleEdit({ gender: item.value }).then(() => {
+        // 同步的修改当前显示的数据
+        this.userInfo.gender = item.value;
+      });
     }
   }
 };

@@ -24,6 +24,11 @@ const routes = [
     // 编辑页
     path: "/edit-profile",
     component: () => import("@/views/EditProfile")
+  },
+  {
+    // 关注页
+    path: "/follow",
+    component: () => import("@/views/Follow")
   }
 ];
 
