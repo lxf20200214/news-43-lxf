@@ -2,7 +2,7 @@ import Vue from "vue";
 import App from "./App.vue";
 import router from "./router";
 // 引入vant ui组件库
-import Vant from "vant";
+import Vant, { Toast } from "vant";
 // 导入axios
 import axios from "axios";
 
@@ -42,6 +42,24 @@ router.beforeEach((to, form, next) => {
     next();
   }
 });
+// 添加axios的响应拦截器
+axios.interceptors.response.use(
+  res => {
+    // 对响应数据做点什么
+    return res;
+  },
+  error => {
+    // 对响应错误做点什么
+    // 如果请求返回的结果是错误的,会进入错误的处理函数中
+    // error是js原生的错误对象,我们可以用error.response可以获取到详细的信息
+    const { statusCode, message } = error.response.data;
+    if (statusCode === 400) {
+      Toast.fail(message);
+    }
+
+    return Promise.reject(error);
+  }
+);
 
 new Vue({
   router,
