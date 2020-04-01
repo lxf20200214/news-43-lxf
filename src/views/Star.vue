@@ -12,7 +12,7 @@
         <img :src="$axios.defaults.baseURL+item.cover[0].url" />
       </div>
       <!-- 循环的结构,大于3张图的布局 -->
-      <!-- <div class="imglist">
+      <!-- <div class="imgList">
         <h4>林志玲穿透视黑纱裙米兰看秀腹部微隆显孕味</h4>
         <div class="images">
           <img
@@ -100,7 +100,7 @@ export default {
   }
 }
 
-.imglist {
+.imgList {
   padding: 20/360 * 100vw;
   border-bottom: 1px #eee solid;
   h4 {
