@@ -3,22 +3,22 @@
     <!-- 循环的结构,少于3张图片的布局 -->
     <div class="imgText">
       <div class="imgText-left">
-        <h4>
-          林志玲穿透视黑纱裙米兰看秀
-          腹部微隆显孕味
-        </h4>
+        <h4>{{data.title}}</h4>
         <p>
-          火星时报
-          <span>52跟帖</span>
+          {{data.user.nickname}}
+          <span>{{data.comment_length}}跟帖</span>
         </p>
       </div>
-      <img src="http://img0.imgtn.bdimg.com/it/u=3526072524,431286876&fm=26&gp=0.jpg" />
+      <img :src="$axios.defaults.baseURL+data.cover[0].url" />
     </div>
   </div>
 </template>
 
 <script>
-export default {};
+export default {
+  // 传入的文章数据
+  props: ["data"]
+};
 </script>
 
 <style scoped lang="less">

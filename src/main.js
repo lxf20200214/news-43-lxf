@@ -11,6 +11,8 @@ Vue.prototype.$axios = axios;
 
 // 给axios添加基准路径,添加完了之后请求的url就会拼接这个地址
 axios.defaults.baseURL = "http://localhost:3000";
+// axios.defaults.baseURL = "http://127.0.0.1:3000";
+// axios.defaults.baseURL = "http://hmtoutiao-api.atlansic.com";
 
 // 注册vant插件(vue.use都是用来注册插件)
 Vue.use(Vant);
@@ -44,11 +46,11 @@ router.beforeEach((to, form, next) => {
 });
 // 添加axios的响应拦截器
 axios.interceptors.response.use(
-  res => {
+  (res) => {
     // 对响应数据做点什么
     return res;
   },
-  error => {
+  (error) => {
     // 对响应错误做点什么
     // 如果请求返回的结果是错误的,会进入错误的处理函数中
     // error是js原生的错误对象,我们可以用error.response可以获取到详细的信息
@@ -63,5 +65,5 @@ axios.interceptors.response.use(
 
 new Vue({
   router,
-  render: h => h(App)
+  render: (h) => h(App),
 }).$mount("#app");

@@ -1,27 +1,28 @@
 <template>
   <div>
     <div class="video">
-      <h4>林志玲穿透视黑纱裙米兰看秀腹部微隆显孕味</h4>
+      <h4>{{data.title}}</h4>
       <div class="cover">
         <!-- 封面图片 -->
-        <img
-          src="https://dss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=218375221,1552855610&fm=111&gp=0.jpg"
-        />
+        <img :src="$axios.defaults.baseURL+data.cover[0].url" />
         <!-- 图片上的按钮 -->
         <div class="cover-layer">
           <span class="iconfont iconshipin"></span>
-        </div>123
+        </div>
       </div>
       <p>
-        火星时报
-        <span>52跟帖</span>
+        {{data.user.nickname}}
+        <span>{{data.comment_length}}跟帖</span>
       </p>
     </div>
   </div>
 </template>
 
 <script>
-export default {};
+export default {
+  // 传入的文章数据
+  props: ["data"]
+};
 </script>
 
 <style scoped lang="less">
