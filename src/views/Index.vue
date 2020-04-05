@@ -247,7 +247,7 @@ export default {
       //
       // 判断如果点击的是最后一个图标,跳转到栏目管理页
       if (this.active === arr.length - 1) {
-        this.$router.push("/栏目管理");
+        this.$router.push("/category");
         // 退出函数,不执行下一步
         return;
       }

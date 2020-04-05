@@ -7,18 +7,18 @@ Vue.use(VueRouter);
 const routes = [
   {
     path: "/",
-    component: () => import("@/views/Index")
+    component: () => import("@/views/Index"),
   },
   {
     path: "/login",
     // 除了首页之外的页面都可以用懒加载
     // .vue的扩展名可以忽略
-    component: () => import("@/views/Login")
+    component: () => import("@/views/Login"),
   },
   {
     // 注册页
     path: "/register",
-    component: () => import("@/views/Register")
+    component: () => import("@/views/Register"),
   },
   {
     // 个人中心
@@ -28,8 +28,8 @@ const routes = [
     // 它的值可以是任意类型
     meta: {
       // 代表这个页面需要授权
-      authorization: true
-    }
+      authorization: true,
+    },
   },
   {
     // 编辑页
@@ -37,8 +37,8 @@ const routes = [
     component: () => import("@/views/EditProfile"),
     meta: {
       // 代表这个页面需要授权
-      authorization: true
-    }
+      authorization: true,
+    },
   },
   {
     // 我的关注页
@@ -46,8 +46,8 @@ const routes = [
     component: () => import("@/views/Follow"),
     meta: {
       // 代表这个页面需要授权
-      authorization: true
-    }
+      authorization: true,
+    },
   },
   {
     // 我的跟帖页
@@ -55,8 +55,8 @@ const routes = [
     component: () => import("@/views/Comment"),
     meta: {
       // 代表这个页面需要授权
-      authorization: true
-    }
+      authorization: true,
+    },
   },
   {
     // 我的收藏页
@@ -64,15 +64,20 @@ const routes = [
     component: () => import("@/views/Star"),
     meta: {
       // 代表这个页面需要授权
-      authorization: true
-    }
-  }
+      authorization: true,
+    },
+  },
+  {
+    // 栏目管理
+    path: "/category",
+    component: () => import("@/views/Category"),
+  },
 ];
 
 const router = new VueRouter({
   mode: "history",
   base: process.env.BASE_URL,
-  routes
+  routes,
 });
 
 export default router;
