@@ -72,6 +72,11 @@ const routes = [
     path: "/category",
     component: () => import("@/views/Category"),
   },
+  {
+    // 搜索页
+    path: "/search",
+    component: () => import("@/views/Search"),
+  },
 ];
 
 const router = new VueRouter({
