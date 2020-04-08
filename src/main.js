@@ -6,6 +6,9 @@ import Vant, { Toast } from "vant";
 // 导入axios
 import axios from "axios";
 
+// 保存根实例对象的
+let app;
+
 // 绑定到原型,加上之后,以后就可以在组件中通过this.$axios来调用请求方法
 Vue.prototype.$axios = axios;
 
@@ -59,11 +62,25 @@ axios.interceptors.response.use(
       Toast.fail(message);
     }
 
+    // 如果状态码是403,就表示token是错的或者没有传token
+    if (statusCode === 403) {
+      // 提示
+      Toast.fail(message);
+      // 跳转到登录页
+      // 对象里面的path属性表示路径,query表单问号的参数
+      // 比如这完整的路径其实 /login?return_url=/posts/8
+      app.$router.push({
+        path: "/login",
+        query: {
+          return_url: app.$route.path,
+        },
+      });
+    }
     return Promise.reject(error);
   }
 );
 
-new Vue({
+app = new Vue({
   router,
   render: (h) => h(App),
 }).$mount("#app");

@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <router-link :to="`/post/${data.id}`">
     <!-- 循环的结构,大于3张图的布局 -->
     <div class="imgList">
       <h4>{{data.title}}</h4>
@@ -15,7 +15,7 @@
         <span>{{data.comment_length}}跟帖</span>
       </p>
     </div>
-  </div>
+  </router-link>
 </template>
 
 <script>
