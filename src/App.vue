@@ -1,6 +1,12 @@
 <template>
   <div id="app">
-    <router-view />
+    <!-- keep-alive会缓存组件,如果不加include会缓存所有的组件 
+    但是include需要指定缓存哪个页面组件,取的是页面组件的那么值-->
+    <!-- include中那么之间不要使用空格 -->
+    <keep-alive include="index,search">
+      <!-- 匹配的组件的坑 -->
+      <router-view />
+    </keep-alive>
   </div>
 </template>
 

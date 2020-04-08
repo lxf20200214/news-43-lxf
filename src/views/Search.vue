@@ -49,6 +49,8 @@ import PostItem1 from "@/components/PostItem1";
 import PostItem2 from "@/components/PostItem2";
 import PostItem3 from "@/components/PostItem3";
 export default {
+  // 这个属性不是组件必须,现在需要用到keep-alive中才需要加上
+  name: "search",
   data() {
     return {
       // 输入框的值
@@ -122,6 +124,22 @@ export default {
         this.list = data;
       });
     }
+  },
+  // 组件进入时触发这个路由守卫
+  // to:表示你即将要访问的页面
+  // from:代表你从哪里来
+  // next：必须要调用，next就类似于你node.js的中间件,调用才会加载后面的内容
+  beforeRouteEnter(to, from, next) {
+    // 通过'vm'访问组件实例,vm指的是this
+    next(vm => {
+      // 如果是从首页进来的,就把数据初始化
+      if (from.path === "/") {
+        // 隐藏浮层
+        vm.showLayer = false;
+        // 清空关键字
+        vm.value = "";
+      }
+    });
   }
 };
 </script>

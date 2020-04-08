@@ -1,24 +1,28 @@
 <template>
-  <div class="container">
+  <div>
+    <video
+      :poster="$axios.defaults.baseURL + post.cover[0].url"
+      :src="$axios.defaults.baseURL+post.content"
+      controls
+      class="video"
+    ></video>
     <div class="main">
-      <!-- 头部 -->
-      <div class="header">
-        <div class="left">
-          <span class="iconfont iconjiantou2" @click="$router.back()"></span>
-          <span class="iconfont iconnew"></span>
+      <div class="author">
+        <div class="userinfo">
+          <img
+            src="https://dss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=1912218184,116310869&fm=26&gp=0.jpg"
+          />
+          <span>火星网友</span>
         </div>
-        <!-- 如果关注是false,就加上active这个class,显示一个红色的按钮 -->
+        <!-- 如果关注是false,就加上active这个class,显示一个红色按钮 -->
         <span
           class="follow"
           :class="post.has_follow?'':'active'"
           @click="handleFollow"
-        >{{post.has_follow?"已关注":"关注"}}</span>
+        >{{post.has_follow?"已关注":'关注'}}</span>
       </div>
+      <!-- 文章标题 -->
       <h2 class="title">{{post.title}}</h2>
-      <p
-        class="author"
-      >{{post.user.nickname}} {{moment(post.create_date).format('YYYY-MM-DD hh:mm:ss')}}</p>
-      <div class="content" v-html="post.content"></div>
       <!-- 按钮列表 -->
       <div class="actions">
         <div class="actions-item" :class="post.has_like?'':'active'">
@@ -31,44 +35,41 @@
           <i>微信</i>
         </div>
       </div>
-      <!-- 底部栏组件 -->
-      <PostFooter :post="post" />
     </div>
+    <!-- 底部栏组件 -->
+    <PostFooter :post="post" />
   </div>
 </template>
 
 <script>
-// 时间转换工具库
-import moment from "moment";
 // 导入底部栏组件
 import PostFooter from "@/components/PostFooter";
 export default {
   data() {
     return {
-      // 文章的详情
+      // 文章详情
       post: {
-        //   为什么要加这个默认值,因为模板需要访问post.user.nickname
-        user: {}
+        user: {},
+        cover: [{}]
       },
-      token: "",
-      moment
+      token: ""
     };
   },
-  // 注册组件
+  //   注册组件
   components: {
     PostFooter
   },
   mounted() {
     //   获取文章的id
     const { id } = this.$route.params;
-    // 本地的token
-    const { token } = JSON.parse(localStorage.getItem("userInfo")) || {};
+    // 获取本地的token
+    const { token } = JSON.parse(localStorage.getItem("userInfo")) || [];
     // 保存一份到data
     this.token = token;
     const config = {
       url: "/post/" + id
     };
-    // 如果token有值,就给头信息加上token
+    // 如果token有值就给头信息加上token
     if (token) {
       config.headers = {
         Authorization: token
@@ -76,8 +77,6 @@ export default {
     }
     // 请求文章的详情
     this.$axios(config).then(res => {
-      console.log(res);
-
       // data是文章的详情
       const { data } = res.data;
       this.post = data;
@@ -132,23 +131,26 @@ export default {
 </script>
 
 <style scoped lang="less">
+.video {
+  width: 100%;
+  display: block;
+  object-fit: fill;
+}
 .main {
-  padding: 20/360 * 100vw;
-  padding-bottom: 100/360 * 100vw;
-
-  border-bottom: 5px #eee solid;
-  .header {
+  padding: 10/360 * 100vw 20/360 * 100vw;
+  .author {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 20/360 * 100vw;
-    .left {
+    .userinfo {
       display: flex;
       align-items: center;
-      .iconnew {
-        display: inline-block;
-        transform: scale(3.5);
-        margin-left: 30px;
+      img {
+        width: 25/360 * 100vw;
+        height: 25/360 * 100vw;
+        border-radius: 50%;
+        object-fit: cover;
+        margin-right: 5px;
       }
     }
     .follow {
@@ -160,31 +162,19 @@ export default {
     .active {
       background: red;
       border-color: red;
-      color: #ffffff;
+      color: #fff;
     }
   }
   .title {
-    font-size: 18px;
-  }
-  .author {
-    line-height: 2;
-    color: #999;
-    font-size: 14px;
-    margin-top: 10/360 * 100vw;
-  }
-  .content {
-    line-height: 1.8;
-    margin-top: 10/360 * 100vw;
-    // 不是本页面的标签或者类型,都可以通过/deep/来访问
-    /deep/ img {
-      max-width: 100%;
-    }
+    font-weight: normal;
+    font-size: 16px;
+    margin: 10/360 * 100vw 0;
   }
   .actions {
     display: flex;
     justify-content: space-around;
     margin-top: 30/360 * 100vw;
-    padding: 0 50/360 * 100vw;
+    padding: 0 30/360 * 100vw;
   }
   .actions-item {
     display: flex;

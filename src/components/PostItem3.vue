@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <router-link :to="`/video/${data.id}`">
     <div class="video">
       <h4>{{data.title}}</h4>
       <div class="cover">
@@ -15,7 +15,7 @@
         <span>{{data.comment_length}}跟帖</span>
       </p>
     </div>
-  </div>
+  </router-link>
 </template>
 
 <script>

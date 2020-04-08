@@ -61,6 +61,7 @@ import PostItem1 from "@/components/PostItem1";
 import PostItem2 from "@/components/PostItem2";
 import PostItem3 from "@/components/PostItem3";
 export default {
+  name: "index",
   data() {
     return {
       // 菜单的数据
