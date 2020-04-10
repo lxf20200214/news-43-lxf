@@ -87,6 +87,11 @@ const routes = [
     path: "/video/:id",
     component: () => import("@/views/Video"),
   },
+  {
+    // 文章的跟帖列表页面
+    path: "/post-comment/:id",
+    component: () => import("@/views/PostComment"),
+  },
 ];
 
 const router = new VueRouter({

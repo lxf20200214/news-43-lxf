@@ -80,6 +80,12 @@ export default {
 
       // data是文章的详情
       const { data } = res.data;
+      // 替换文字内容里面的本地路径,把localhost:3000替换成基准路径
+      // 这个功能支队使用线上接口的同学有效果,如果使用的是本地的后台,不替换也可以
+      // data.content = data.content.replace(
+      //   /http:\/\/localhost:3000/gi,
+      //   this.$axios.defaults.baseURL
+      // );
       this.post = data;
     });
   },

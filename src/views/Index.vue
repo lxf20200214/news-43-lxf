@@ -106,6 +106,18 @@ export default {
       this.getCategories();
     }
   },
+  // 组件内的守卫,每次进入页面时候都会触发
+  beforeRouteEnter(to, from, next) {
+    // 加个条件,如果时候来自栏目管理页
+    if (from.path === "/category") {
+      // vm就是this
+      next(vm => {
+        vm.active = 0;
+      });
+    } else {
+      next();
+    }
+  },
   methods: {
     // 当栏目数据加载完成后
     // 循环给栏目加上pageIndex,每个栏目都有自己的pageIndex

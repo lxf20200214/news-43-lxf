@@ -2,7 +2,8 @@
   <!-- 固定在底部的底部栏 -->
   <div class="footer">
     <!-- 点击跳转评论页 -->
-    <div class="comment-input">发布评论</div>
+    <router-link :to="`/post-comment/${post.id}`" class="comment-input">发布评论</router-link>
+
     <div class="icons">
       <span class="iconfont iconpinglun-"></span>
       <!-- 评论的条数,如果大于100就显示99+ -->
