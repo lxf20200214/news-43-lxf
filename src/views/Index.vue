@@ -79,32 +79,7 @@ export default {
     PostItem3
   },
   mounted() {
-    // 在请求之前,应该先判断本地有没有栏目数据
-    const categories = JSON.parse(localStorage.getItem("categories"));
-    // 本地的token
-    const { token } = JSON.parse(localStorage.getItem("userInfo")) || {};
-    // 把token保存到data
-    this.token = token;
-    // 如果本地有数据,获取本地的数据来渲染
-    if (categories) {
-      if (categories[0].name !== "关注" && token) {
-        // 获取栏目数据
-        this.getCategories();
-        return;
-      } else if (categories[0].name === "关注" && !token) {
-        // 获取栏目数据
-        this.getCategories();
-        return;
-      } else {
-        this.categories = categories;
-        // 给每个栏目都加上pageIndex = 1
-        this.handleCategories();
-      }
-    } else {
-      // 获取栏目数据
-
-      this.getCategories();
-    }
+    this.reload();
   },
   // 组件内的守卫,每次进入页面时候都会触发
   beforeRouteEnter(to, from, next) {
@@ -113,12 +88,44 @@ export default {
       // vm就是this
       next(vm => {
         vm.active = 0;
+        // 如果是从栏目管理回来的,避免栏目管理的数据有更新,所以重新的初始化话页面
+        vm.reload();
       });
     } else {
       next();
     }
   },
   methods: {
+    // 初始化页面的方法
+    reload() {
+      // 在请求之前,应该先判断本地有没有栏目数据
+      const categories = JSON.parse(localStorage.getItem("categories"));
+      // 本地的token
+      const { token } = JSON.parse(localStorage.getItem("userInfo")) || {};
+      // 把token保存到data
+      this.token = token;
+      // 如果本地有数据,获取本地的数据来渲染
+      if (categories) {
+        // 如果当前是登录的状态,但是栏目的第一项居然不是关注,需要重新请求
+        // 如果当前未登录,但是栏目的第一项居然叫关注,也需要重新请求
+        if (
+          (categories[0].name !== "关注" && token) ||
+          (categories[0].name === "关注" && !token)
+        ) {
+          // 获取栏目数据
+          this.getCategories();
+          return;
+        } else {
+          this.categories = categories;
+          // 给每个栏目都加上pageIndex = 1
+          this.handleCategories();
+        }
+      } else {
+        // 获取栏目数据
+
+        this.getCategories();
+      }
+    },
     // 当栏目数据加载完成后
     // 循环给栏目加上pageIndex,每个栏目都有自己的pageIndex
     handleCategories() {
@@ -252,6 +259,7 @@ export default {
   watch: {
     // 监听tab栏的切换
     active() {
+      // this.reload();
       // 先过滤出is_top等于1的或者是v图标的栏目
       const arr = this.categories.filter(v => {
         return v.is_top || v.name === "∨";
